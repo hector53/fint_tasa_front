@@ -3,7 +3,8 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 
 export const state = {
-    urlBack : "http://127.0.0.1:5000/api", 
+  //  urlBack : "http://127.0.0.1:5000/api", 
+    urlBack : "https://apitasa.fintelligentia.com/api",
     status: {}, 
     user: null, 
     currenUser : resolveCookie()

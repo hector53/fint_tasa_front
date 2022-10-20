@@ -376,6 +376,10 @@ export default {
   },
   methods: {
    async makeOrder(){
+    if(this.quantityBtc == 0){
+      this.makeToast("danger", "error", "quantity must be greater than 0 ");
+      return false
+    }
     this.addTokenBearer()
       console.log(this.selectedCell)
       console.log(this.dataGrid)
