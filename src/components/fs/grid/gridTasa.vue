@@ -391,6 +391,7 @@ export default {
       }else{
         distanciaActual = this.dividirBidAsk(this.dataGrid.gridCells[this.indexGridCell].rowAsk, this.dataGrid.gridCells[this.indexGridCell].colBid )
       }
+      this.$isLoading(true) // show loading screen
       await this.axios
         .post(this.$store.state.back.urlBack +  "/make_order", {
           "nameRow": this.selectedCell.rowNameOriginal,
@@ -410,10 +411,12 @@ export default {
           console.log(response);
           this.showModalStrategy = false
           this.$emit("ordenEjecutada")
+          this.$isLoading(false) // show loading screen
         })
         .catch((error) => {
           console.log(error);
           this.makeToast("danger", "error", error);
+          this.$isLoading(false) // show loading screen
         });
     }, 
     numHigh(num1, num2){

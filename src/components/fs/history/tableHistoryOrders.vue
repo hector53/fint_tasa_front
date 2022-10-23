@@ -22,7 +22,6 @@
                     </td>
                     <td>{{item.type}}</td>
                     <td>{{item.size}}</td>
-                    <td>{{item.distance}}</td>
                     <td>{{item.side}}</td>
                     <td>{{item.time}}</td>
                   </tr>

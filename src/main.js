@@ -21,6 +21,8 @@ import "@/assets/scss/app.scss";
 import { initFirebaseBackend } from './helpers/firebase/authUtils';
 
 import { configureFakeBackend } from './helpers/fakebackend/fake-backend';
+import loading from 'vuejs-loading-screen'
+
 
 const firebaseConfig = {
   apiKey: process.env.VUE_APP_APIKEY,
@@ -40,6 +42,7 @@ if (process.env.VUE_APP_DEFAULT_AUTH === "firebase") {
 }
 
 Vue.config.productionTip = false
+Vue.use(loading)
 Vue.use(VueYoutube)
 Vue.use(BootstrapVue)
 Vue.use(VueAxios, axios)
