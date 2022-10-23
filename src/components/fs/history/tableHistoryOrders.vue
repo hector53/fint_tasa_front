@@ -9,6 +9,7 @@
                     <th>Type</th>
                     <th>Size</th>
                     <th>Side</th>
+                    <th>Price</th>
                     <th>Time</th>
                   </tr>
                 </thead>
@@ -23,6 +24,7 @@
                     <td>{{item.type}}</td>
                     <td>{{item.size}}</td>
                     <td>{{item.side}}</td>
+                    <td>{{item.price}}</td>
                     <td>{{item.time}}</td>
                   </tr>
                 

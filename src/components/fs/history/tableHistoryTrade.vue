@@ -10,6 +10,7 @@
                     <th>Size</th>
                     <th>Distance</th>
                     <th>Side</th>
+                    <th>Price</th>
                     <th>Time</th>
 
                   </tr>
@@ -26,6 +27,7 @@
                     <td>{{item.size}}</td>
                     <td>{{item.distance}}</td>
                     <td>{{item.side}}</td>
+                    <td>{{item.price}}</td>
                     <td>{{item.time}}</td>
                   </tr>
                 
