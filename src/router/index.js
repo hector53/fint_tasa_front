@@ -1,16 +1,16 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import VueMeta from 'vue-meta'
-import Cookies from 'js-cookie'
-import axios from 'axios'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import VueMeta from "vue-meta";
+import Cookies from "js-cookie";
+import axios from "axios";
 //import store from '@/state/store'
-import routes from './routes'
-import store from '@/state/store'
-Vue.use(VueRouter)
+import routes from "./routes";
+import store from "@/state/store";
+Vue.use(VueRouter);
 Vue.use(VueMeta, {
   // The component option name that vue-meta looks for meta info on.
-  keyName: 'page',
-})
+  keyName: "page",
+});
 
 const router = new VueRouter({
   routes,
@@ -18,39 +18,49 @@ const router = new VueRouter({
   // instead of routes with hashes (e.g. example.com/#/about).
   // This may require some server configuration in production:
   // https://router.vuejs.org/en/essentials/history-mode.html#example-server-configurations
-  mode: 'history',
+  mode: "history",
   // Simulate native-like scroll behavior when navigating to a new
   // route and using back/forward buttons.
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-      return savedPosition
+      return savedPosition;
     } else {
-      return { x: 0, y: 0 }
+      return { x: 0, y: 0 };
     }
   },
-})
+});
 
 // Before each route evaluates...
-router.beforeEach( (routeTo, routeFrom, next) => {
-   
-    const publicPages = ['/login', '/register', '/forgot-password'];
-    const authpage = !publicPages.includes(routeTo.path);
-    const loggeduser = Cookies.get('fintCurrenUser')
-
-    if (authpage && !loggeduser) {
-      //aqui no existe la cookie por lo tanto lo mando a login 
-    
-      return next('/login');
+router.beforeEach(async (routeTo, routeFrom, next) => {
+  const publicPages = ["/login", "/register", "/forgot-password"];
+  const authpage = !publicPages.includes(routeTo.path);
+  const loggeduser = Cookies.get("fintCurrenUser");
+  if (authpage && !loggeduser) {
+    //aqui no existe la cookie por lo tanto lo mando a login
+    console.log("no hay cookie")
+    return next("/login");
+  }
+  if (loggeduser) {
+    console.log(
+      "aqui si existe la cookie por lo tanto pregunto en el back si es correcto el token"
+    );
+    var token = Cookies.get("fintCurrenUser");
+    token = JSON.parse(token);
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token.token}`;
+    try {
+      var result = await axios.post(
+        store.state.back.urlBack + "/validateToken"
+      );
+      
+      console.log("result", result);
+    } catch (error) {
+      console.log(error);
+      Cookies.remove("fintCurrenUser");
+      return next("/login");
     }
-    if(loggeduser){
-      console.log("aqui si existe la cookie por lo tanto pregunto en el back si es correcto el token")
-      if(!validate()){
-        return next('/login');
-      }
-    }
-    next();
-  
-})
+  }
+  next();
+});
 
 router.beforeResolve(async (routeTo, routeFrom, next) => {
   // Create a `beforeResolve` hook, which fires whenever
@@ -71,40 +81,27 @@ router.beforeResolve(async (routeTo, routeFrom, next) => {
             if (args.length) {
               // If redirecting to the same route we're coming from...
               // Complete the redirect.
-              next(...args)
-              reject(new Error('Redirected'))
+              next(...args);
+              reject(new Error("Redirected"));
             } else {
-              resolve()
+              resolve();
             }
-          })
+          });
         } else {
           // Otherwise, continue resolving the route.
-          resolve()
+          resolve();
         }
-      })
+      });
     }
     // If a `beforeResolve` hook chose to redirect, just return.
   } catch (error) {
-    return
+    return;
   }
 
   // If we reach this point, continue resolving the route.
-  next()
-})
+  next();
+});
 
-async function  validate(){
-  var token = Cookies.get('fintCurrenUser')
-  token = JSON.parse(token)
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token.token}`
 
- await axios.post(store.state.back.urlBack+'/validateToken').then((response) => {
-    console.log(response)
-    return true
-  })
-  .catch((error) => {
-    console.log(error)
-    return false
-  })
-}
 
-export default router
+export default router;
