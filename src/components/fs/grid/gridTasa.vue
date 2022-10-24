@@ -387,9 +387,9 @@ export default {
       var distanciaActual;
       if(this.buyerSeller==1){
         //es tasa clasica 
-        distanciaActual = this.dividirBidAsk(this.dataGrid.gridCells[this.indexGridCell].rowBid, this.dataGrid.gridCells[this.indexGridCell].colAsk)
+        distanciaActual = this.dividirBidAsk(this.dataGrid.gridCells[this.indexGridCell].rowAsk, this.dataGrid.gridCells[this.indexGridCell].colBid)
       }else{
-        distanciaActual = this.dividirBidAsk(this.dataGrid.gridCells[this.indexGridCell].rowAsk, this.dataGrid.gridCells[this.indexGridCell].colBid )
+        distanciaActual = this.dividirBidAsk(this.dataGrid.gridCells[this.indexGridCell].rowBid, this.dataGrid.gridCells[this.indexGridCell].colAsk )
       }
       this.$isLoading(true) // show loading screen
       await this.axios
