@@ -4,7 +4,7 @@ export const state = {
   leftSidebarType: 'dark',
   topbar: 'dark',
   loader: false, 
-//  urlBack: "http://127.0.0.1:5000/api/", 
+ // urlBack: "http://127.0.0.1:5000/api/", 
   urlBack : "https://apitasa.fintelligentia.com/api",
 }
 

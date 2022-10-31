@@ -84,22 +84,22 @@ export default {
         },
         {
           id: 4,
-          name: "ADA",
+          name: "AXS",
         },
         {
           id: 5,
-          name: "EOS",
+          name: "CEL",
         },
         {
           id: 6,
-          name: "LINK",
+          name: "DOGE",
         },
         {
           id: 7,
           name: "LINK",
         },
         { id: 8, name: "DOT" },{ id: 9, name: "BNB" },{ id: 10, name: "ATOM" },{ id: 11, name: "AVAX" },
-        { id: 12, name: "TRX" },{ id: 13, name: "MATIC" },
+        { id: 12, name: "TRX" },{ id: 13, name: "MATIC" },{ id: 14, name: "ETH" }
       ],
       derivativeCheck: 1,
       derivative: [
